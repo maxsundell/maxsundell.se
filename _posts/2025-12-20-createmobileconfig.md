@@ -18,7 +18,7 @@ A `.mobileconfig` is an Apple **configuration profile** used to configure settin
 
 Technically, it’s a plist document that contains:
 
-- One or more **payloads** (plist dictionaries of key–value pairs)
+- One or more **payloads** (plist dictionaries of key:value pairs)
 - Profile metadata such as a name and identifier
 - An optional signature *(typically handled by the MDM, so you usually don’t need to sign it yourself)*
 
@@ -53,7 +53,7 @@ Tip: You can search by clicking the magnifying glass in the top-right corner, or
 
 Configure the keys you care about for the payload you added.
 
-For the example (**DDM OS Reminder**), all keys are optional—leave a value empty to use the default.
+For the example (**DDM OS Reminder**), all keys are optional, leave a value empty to use the default.
 
 ![DDM OS Reminder configuration in iMazing]({{ '/assets/img/posts/2025-12-20-createmobileconfig/2.png' | relative_url }})
 
@@ -65,7 +65,7 @@ Save the `.mobileconfig` via the top menu.
 
 ## 5. Create the policy in Intune
 
-The deployment flow is similar in other MDM solutions: create a custom profile policy, upload the `.mobileconfig`, then assign it to your target devices (or users, if supported).
+The deployment flow is similar in other MDM solutions: create a custom profile policy, upload the `.mobileconfig`, then assign it to your target devices/users.
 
 1. In Intune, go to **Devices** → **macOS** → **Configuration**.
 2. Click **Create** → **New policy**.
@@ -85,10 +85,10 @@ The deployment flow is similar in other MDM solutions: create a custom profile p
 ![Upload the .mobileconfig and assign groups in Intune]({{ '/assets/img/posts/2025-12-20-createmobileconfig/4.png' | relative_url }})
 
 ## Bonus tip: Use local preference manifests
-Sometimes the [ProfileManifests](https://github.com/DigiDNA/ProfileManifests){:target="_blank" rel="noopener noreferrer"} repo may be out of date. If you want to create a `.mobileconfig` using local preference manifests, you can set a custom override.
+Sometimes the [ProfileManifests](https://github.com/DigiDNA/ProfileManifests){:target="_blank" rel="noopener noreferrer"} repo may be out of date. If you want to create a `.mobileconfig` using a local preference manifest, you can set a custom override.
 
-1. Go to iMazing Profile Editor → Settings… in the menu bar.
-2. Go to Manifests → Local folder for custom and override preference manifests → Choose…
+1. Go to **iMazing Profile Editor → Settings…** in the menu bar.
+2. Go to **Manifests → Local folder for custom and override preference manifests → Choose…**
 3. Select the folder where you’ll store your custom preference manifest overrides.
 4. Place your `.plist` preference manifests in the chosen folder. iMazing will automatically match the app based on the application domain in the file name.
 
