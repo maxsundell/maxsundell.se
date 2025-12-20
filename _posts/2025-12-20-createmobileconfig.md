@@ -8,9 +8,17 @@ tags: [macOS]
 This post covers a workflow to:
 
 1. Create a macOS configuration profile (`.mobileconfig`) with **iMazing Profile Editor**.
-2. Deploy it using an MDM (Microsoft Intune in this example).
+2. Deploy it using an MDM (**Microsoft Intune** in this example).
 
-The steps are general and work for many app config payloads. I’ll use **DDM OS Reminder** as the running example.
+The steps are general and will work for many different apps and system features. I will use **DDM OS Reminder** as the running example.
+
+## What is a `.mobileconfig`?
+
+A `.mobileconfig` is an Apple **configuration profile** used to configure settings on macOS (and other Apple platforms). Internally, it’s a **property list (plist)** document that contains one or more payloads.
+
+Each payload is a plist dictionary of keys/values, and the profile is wrapped with metadata such as a profile name, identifier, and (optionally) a signature.
+
+In practice: you create the profile, upload it to your MDM, and the MDM installs it on devices.
 
 ## What you’ll need
 
@@ -20,10 +28,10 @@ The steps are general and work for many app config payloads. I’ll use **DDM OS
 
 ## 1. Install iMazing Profile Editor
 
-iMazing Profile Editor is an easy way to create and edit `.mobileconfig` files. It uses an fork of the [ProfileManifest](https://github.com/DigiDNA/ProfileManifests) repo to provide a UI for many macOS config payloads.
+iMazing Profile Editor is an easy way to create and edit `.mobileconfig` files. It uses a fork of the [ProfileManifests](https://github.com/DigiDNA/ProfileManifests) repo to provide a UI for many macOS config payloads.
 
-- Direct Download: https://imazing.com/profile-editor/download
-- App Store Download: https://apps.apple.com/se/app/imazing-profile-editor/id1487860882
+- [Direct download](https://imazing.com/profile-editor/download)
+- [App Store download](https://apps.apple.com/se/app/imazing-profile-editor/id1487860882)
 
 ## 2. Add a payload
 
@@ -35,11 +43,15 @@ Example (DDM OS Reminder):
 2. Scroll until you find **DDM OS Reminder**.
 3. Select it and click **+ Add Payload**.
 
+![DDM OS Reminder payload in iMazing]({{ '/assets/img/posts/2025-12-20-createmobileconfig/1.png' | relative_url }})
+
 ## 3. Configure the payload
 
 Configure the keys you care about for the payload you added.
 
-For the running example (DDM OS Reminder): all keys are optional, if you leave a value empty, the default value is used.
+For the running example (**DDM OS Reminder**), all keys are optional—if you leave a value empty, the default value is used.
+
+![DDM OS Reminder payload in iMazing]({{ '/assets/img/posts/2025-12-20-createmobileconfig/2.png' | relative_url }})
 
 Tip: hover over the **?** next to each key to see details and the default value.
 
@@ -56,9 +68,14 @@ You do **not** need to sign the profile if you intend to upload it using an MDM.
 3. Under **Profile type**, select **Templates**.
 4. Select **Custom**.
 5. Set an **Intune policy display name** (shown in Intune), then click **Next**.
+
+![DDM OS Reminder payload in iMazing]({{ '/assets/img/posts/2025-12-20-createmobileconfig/3.png' | relative_url }})
+
 6. Set a **Custom configuration profile name** (shown locally under **System Settings** → **Device Management**).
 7. Leave the deployment channel as **Device Channel**.
 8. Upload the `.mobileconfig` you created.
-9. Click **Next**, choose your **assignment groups**, and finish the policy.
+9. Click **Next**, choose your **Assignment Groups**, and press **Create** to publish the policy.
 
-The deployment flow is similar in other MDM solutions: create a custom profile policy, upload the `.mobileconfig`, then assign it to devices (or users, if your payload supports it).
+![DDM OS Reminder payload in iMazing]({{ '/assets/img/posts/2025-12-20-createmobileconfig/4.png' | relative_url }})
+
+The deployment flow is similar in other MDM solutions: create a custom profile policy, upload the `.mobileconfig`, then assign it to your target devices (or users, if your payload supports it).
