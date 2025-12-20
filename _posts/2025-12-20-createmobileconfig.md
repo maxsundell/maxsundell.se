@@ -24,13 +24,13 @@ Technically, it’s a plist document that contains:
 
 ## What you’ll need
 
-- A Mac
+- A Mac (or PC)
 - **iMazing Profile Editor**
 - Admin access to **Microsoft Intune** (or another MDM)
 
 ## 1. Install iMazing Profile Editor
 
-iMazing Profile Editor provides an easy-to-use GUI for creating and editing `.mobileconfig` files. It uses a fork of the [ProfileManifests](https://github.com/DigiDNA/ProfileManifests){:target="_blank" rel="noopener noreferrer"} repository to provide a UI for many community macOS payloads.
+iMazing Profile Editor provides an easy-to-use GUI for creating and editing `.mobileconfig` files. It uses a [fork](https://github.com/DigiDNA/ProfileManifests){:target="_blank" rel="noopener noreferrer"} of the [ProfileManifests](https://github.com/ProfileManifests/ProfileManifests){:target="_blank" rel="noopener noreferrer"} repository to provide a UI for many community macOS payloads.
 
 - [Direct download](https://imazing.com/profile-editor/download){:target="_blank" rel="noopener noreferrer"}
 - [App Store download](https://apps.apple.com/se/app/imazing-profile-editor/id1487860882){:target="_blank" rel="noopener noreferrer"}
@@ -43,17 +43,17 @@ Example (DDM OS Reminder):
 
 1. Open **iMazing Profile Editor**.
 2. Scroll until you find **DDM OS Reminder**.
-3. Select it and click **+ Add Payload**.
+3. Select it and press **+ Add Payload**.
 
 ![DDM OS Reminder payload in iMazing]({{ '/assets/img/posts/2025-12-20-createmobileconfig/1.png' | relative_url }})
 
-Tip: You can search by clicking the magnifying glass in the top-right corner, or by selecting any payload in the left sidebar and typing the first letters of the payload name.
+Tip: You can search by pressing the magnifying glass in the top-right corner, or by selecting any payload in the left sidebar and typing the first letters of the payload name.
 
 ## 3. Configure the payload
 
 Configure the keys you care about for the payload you added.
 
-For the example (**DDM OS Reminder**), all keys are optional, leave a value empty to use the default.
+For the example (**DDM OS Reminder**), all keys are optional; leave a value empty to use the default.
 
 ![DDM OS Reminder configuration in iMazing]({{ '/assets/img/posts/2025-12-20-createmobileconfig/2.png' | relative_url }})
 
@@ -68,10 +68,10 @@ Save the `.mobileconfig` via the top menu.
 The deployment flow is similar in other MDM solutions: create a custom profile policy, upload the `.mobileconfig`, then assign it to your target devices/users.
 
 1. In Intune, go to **Devices** → **macOS** → **Configuration**.
-2. Click **Create** → **New policy**.
+2. Press **Create** → **New policy**.
 3. Under **Profile type**, select **Templates**.
 4. Select **Custom**.
-5. Set an **Intune policy display name** (shown in Intune), then click **Next**.
+5. Set an **Intune policy display name** (shown in Intune), then press **Next**.
 
 ![Create a custom macOS profile in Intune]({{ '/assets/img/posts/2025-12-20-createmobileconfig/3.png' | relative_url }})
 
@@ -80,16 +80,16 @@ The deployment flow is similar in other MDM solutions: create a custom profile p
 1. Set a **Custom configuration profile name** (shown locally under **System Settings** → **Device Management**).
 2. Leave the deployment channel as **Device Channel**.
 3. Upload the `.mobileconfig` you created.
-4. Click **Next**, choose your **Assignment Groups**, and press **Create** to publish the policy.
+4. Press **Next**, choose your **Assignment Groups**, and press **Create** to publish the policy.
 
 ![Upload the .mobileconfig and assign groups in Intune]({{ '/assets/img/posts/2025-12-20-createmobileconfig/4.png' | relative_url }})
 
 ## Bonus tip: Use local preference manifests
-Sometimes the [ProfileManifests](https://github.com/DigiDNA/ProfileManifests){:target="_blank" rel="noopener noreferrer"} repo may be out of date. If you want to create a `.mobileconfig` using a local preference manifest, you can set a custom override.
+Sometimes the [DigiDNA/ProfileManifests](https://github.com/DigiDNA/ProfileManifests){:target="_blank" rel="noopener noreferrer"} repo may be out of date. If you want to create a `.mobileconfig` using a local preference manifest provided by the developer, you can set a custom override.
 
 1. Go to **iMazing Profile Editor → Settings…** in the menu bar.
 2. Go to **Manifests → Local folder for custom and override preference manifests → Choose…**
 3. Select the folder where you’ll store your custom preference manifest overrides.
-4. Place your `.plist` preference manifests in the chosen folder. iMazing will automatically match the app based on the application domain in the file name.
+4. Place your `.plist` preference manifests in the chosen folder. iMazing Profile Editor will automatically match the app based on the application domain in the file name.
 
 ![Upload the .mobileconfig and assign groups in Intune]({{ '/assets/img/posts/2025-12-20-createmobileconfig/5.png' | relative_url }})
