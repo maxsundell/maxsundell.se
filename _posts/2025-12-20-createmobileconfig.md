@@ -2,7 +2,7 @@
 title: "Create and deploy a macOS configuration profile (.mobileconfig)"
 date: 2025-12-20 22:10:00 +0100
 categories: [Guides]
-tags: [macOS]
+tags: [macOS, Intune, DDM OS Reminder, Configuration]
 ---
 
 This post covers a workflow to:
